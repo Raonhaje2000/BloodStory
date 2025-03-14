@@ -8,23 +8,23 @@ namespace RSA
 {
     public class PlayerRed : MonoBehaviour
     {
-        // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ
+        // í”Œë ˆì´ì–´ì˜ ìƒíƒœ
         public enum State
         {
-            Walk = 0,       // °È±â
-            Run = 1,        // ´Ş¸®±â
-            WhiteCall = 2,  // ¹éÇ÷±¸ È£Ãâ
-            Die = 3         // Á×À½
+            Walk = 0,       // ê±·ê¸°
+            Run = 1,        // ë‹¬ë¦¬ê¸°
+            WhiteCall = 2,  // ë°±í˜ˆêµ¬ í˜¸ì¶œ
+            Die = 3         // ì£½ìŒ
         }
 
-        public State playerRedState; // ÇöÀç ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ
+        public State playerRedState; // í˜„ì¬ í”Œë ˆì´ì–´ì˜ ìƒíƒœ
 
-        float whiteCallTime; // ¹éÇ÷±¸ È£Ãâ Áö¼Ó ½Ã°£
+        float whiteCallTime; // ë°±í˜ˆêµ¬ í˜¸ì¶œ ì§€ì† ì‹œê°„
 
-        bool isWhiteCall; // ¹éÇ÷±¸ È£Ãâ »óÅÂÀÎÁö ¿©ºÎ (¹éÇ÷±¸ È£Ãâ ¾ÆÀÌÅÛÀ» ¸Ô¾ú´ÂÁö)
-        bool isShield;    // ½¯µå ¿©ºÎ
+        bool isWhiteCall; // ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœì¸ì§€ ì—¬ë¶€ (ë°±í˜ˆêµ¬ í˜¸ì¶œ ì•„ì´í…œì„ ë¨¹ì—ˆëŠ”ì§€)
+        bool isShield;    // ì‰´ë“œ ì—¬ë¶€
 
-        bool isUnbeatable; // ÇöÀç ¹«Àû »óÅÂÀÎÁö ¿©ºÎ
+        bool isUnbeatable; // í˜„ì¬ ë¬´ì  ìƒíƒœì¸ì§€ ì—¬ë¶€
 
         public float WhiteCallTime
         {
@@ -39,7 +39,7 @@ namespace RSA
 
         private void Awake()
         {
-            Initialized(); // ÃÊ±âÈ­
+            Initialized(); // ì´ˆê¸°í™”
         }
 
         void Start()
@@ -49,10 +49,10 @@ namespace RSA
 
         void Update()
         {
-            UpdatePlayerRedState(); // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ ¾÷µ¥ÀÌÆ®
+            UpdatePlayerRedState(); // í”Œë ˆì´ì–´ì˜ ìƒíƒœ ì—…ë°ì´íŠ¸
         }
 
-        // ÃÊ±âÈ­
+        // ì´ˆê¸°í™”
         void Initialized()
         {
             playerRedState = State.Walk;
@@ -65,41 +65,41 @@ namespace RSA
             isUnbeatable = false;
         }
 
-        // ÇÃ·¹ÀÌ¾îÀÇ »óÅÂ ¾÷µ¥ÀÌÆ®
+        // í”Œë ˆì´ì–´ì˜ ìƒíƒœ ì—…ë°ì´íŠ¸
         void UpdatePlayerRedState()                                         
         {
             switch (playerRedState)
             {
                 case State.Walk:
                     {
-                        WalkPlayerRed(); // °È±â »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+                        WalkPlayerRed(); // ê±·ê¸° ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
                         break;
                     }
                 case State.Run:
                     {
-                        RunPlayerRed(); // ´Ş¸®±â »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+                        RunPlayerRed(); // ë‹¬ë¦¬ê¸° ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
                         break;
                     }
                 case State.WhiteCall:
                     {
-                        WhiteCallPlayerRed(); // ¹éÇ÷±¸ È£Ãâ »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+                        WhiteCallPlayerRed(); // ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
                         break;
                     }
                 case State.Die:
                     {
-                        DiePlayerRed(); // Á×À½ »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+                        DiePlayerRed(); // ì£½ìŒ ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
                         break;
                     }
             }
         }
 
-        // °È±â »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+        // ê±·ê¸° ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
         void WalkPlayerRed()
         {
             if (isWhiteCall)
             {
-                // ¹éÇ÷±¸ È£Ãâ ¾ÆÀÌÅÛÀ» ¸Ô¾î ¹éÇ÷±¸ È£Ãâ »óÅÂ°¡ µÈ °æ¿ì
-                // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ ¹éÇ÷±¸ È£Ãâ »óÅÂ·Î ÀüÀÌ
+                // ë°±í˜ˆêµ¬ í˜¸ì¶œ ì•„ì´í…œì„ ë¨¹ì–´ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœê°€ ëœ ê²½ìš°
+                // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœë¡œ ì „ì´
                 GetComponent<PlayerRedAnimation>().SetWhiteCallAnimation();
                 playerRedState = State.WhiteCall;
             }
@@ -107,14 +107,14 @@ namespace RSA
             {
                 if (Input.GetAxis("Vertical") == 0)
                 {
-                    // ÀÌµ¿Å° ÀÔ·ÂÀÌ ¾øÀ» °æ¿ì
-                    // °È±â »óÅÂ À¯Áö
+                    // ì´ë™í‚¤ ì…ë ¥ì´ ì—†ì„ ê²½ìš°
+                    // ê±·ê¸° ìƒíƒœ ìœ ì§€
                     playerRedState = State.Walk;
                 }
                 else
                 {
-                    // ÀÌµ¿Å° ÀÔ·ÂÀÌ ÀÖÀ» °æ¿ì
-                    // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ ´Ş¸®±â »óÅÂ·Î ÀüÀÌ
+                    // ì´ë™í‚¤ ì…ë ¥ì´ ìˆì„ ê²½ìš°
+                    // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ë‹¬ë¦¬ê¸° ìƒíƒœë¡œ ì „ì´
                     GetComponent<PlayerRedAnimation>().SetRunAnimation();
                     playerRedState = State.Run;
                 }
@@ -125,8 +125,8 @@ namespace RSA
         {
             if (isWhiteCall)
             {
-                // ¹éÇ÷±¸ È£Ãâ ¾ÆÀÌÅÛÀ» ¸Ô¾î ¹éÇ÷±¸ È£Ãâ »óÅÂ°¡ µÈ °æ¿ì
-                // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ ¹éÇ÷±¸ È£Ãâ »óÅÂ·Î ÀüÀÌ
+                // ë°±í˜ˆêµ¬ í˜¸ì¶œ ì•„ì´í…œì„ ë¨¹ì–´ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœê°€ ëœ ê²½ìš°
+                // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœë¡œ ì „ì´
                 GetComponent<PlayerRedAnimation>().SetWhiteCallAnimation();
                 playerRedState = State.WhiteCall;
             }
@@ -134,118 +134,117 @@ namespace RSA
             {
                 if (Input.GetAxis("Vertical") != 0)
                 {
-                    // ÀÌµ¿Å° ÀÔ·ÂÀÌ ÀÖÀ» °æ¿ì
-                    // ´Ş¸®±â »óÅÂ À¯Áö
+                    // ì´ë™í‚¤ ì…ë ¥ì´ ìˆì„ ê²½ìš°
+                    // ë‹¬ë¦¬ê¸° ìƒíƒœ ìœ ì§€
                     playerRedState = State.Run;
                 }
                 else
                 {
-                    // ÀÌµ¿Å° ÀÔ·ÂÀÌ ¾øÀ» °æ¿ì
-                    // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ °È±â »óÅÂ·Î ÀüÀÌ
+                    // ì´ë™í‚¤ ì…ë ¥ì´ ì—†ì„ ê²½ìš°
+                    // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ê±·ê¸° ìƒíƒœë¡œ ì „ì´
                     GetComponent<PlayerRedAnimation>().SetWalkAnimation();
                     playerRedState = State.Walk;
                 }
             }
         }
 
-        // ¹éÇ÷±¸ È£Ãâ »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+        // ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
         void WhiteCallPlayerRed()
         {
-            // ¹éÇ÷±¸ È£Ãâ Áö¼Ó ½Ã°£ÀÌ ³¡³­ ÈÄ °ü·Ã µ¥ÀÌÅÍ Ã³¸®                                                         
+            // ë°±í˜ˆêµ¬ í˜¸ì¶œ ì§€ì† ì‹œê°„ì´ ëë‚œ í›„ ê´€ë ¨ ë°ì´í„° ì²˜ë¦¬                                                         
             Invoke("FinishWhilteCall", whiteCallTime);
         }
 
-        // Á×À½ »óÅÂÀÏ ¶§ÀÇ Ã³¸®
+        // ì£½ìŒ ìƒíƒœì¼ ë•Œì˜ ì²˜ë¦¬
         void DiePlayerRed()
         {
-            // ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿À» ¸ØÃã
+            // í”Œë ˆì´ì–´ì˜ ì´ë™ì„ ë©ˆì¶¤
             GetComponent<PlayerRedController>().PlayerMoveStop();
 
-            Debug.Log("ÇÃ·¹ÀÌ¾î »ç¸Á");
+            Debug.Log("í”Œë ˆì´ì–´ ì‚¬ë§");
         }
 
         void FinishWhilteCall()
         {
-            // Áõ°¡µÇ¾ú´ø ÇÃ·¹ÀÌ¾îÀÇ ÀÌµ¿ ¼Óµµ¸¦ ¿ø·¡´ë·Î µ¹¸²
+            // ì¦ê°€ë˜ì—ˆë˜ í”Œë ˆì´ì–´ì˜ ì´ë™ ì†ë„ë¥¼ ì›ë˜ëŒ€ë¡œ ëŒë¦¼
             GetComponent<PlayerRedController>().ChangePlayerMoveSpeedInit();                                          
 
-            CancelInvoke("FinishWhilteCall");
             isWhiteCall = false;
 
-            // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ °È±â »óÅÂ·Î ÀüÀÌ
+            // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ê±·ê¸° ìƒíƒœë¡œ ì „ì´
             GetComponent<PlayerRedAnimation>().SetWalkAnimation();
             playerRedState = State.Walk;
         }
 
-        // ½¯µå È°¼ºÈ­ ¼¼ÆÃ
+        // ì‰´ë“œ í™œì„±í™” ì„¸íŒ…
         public void SetShieldActive(bool active)
         {
             isShield = active;
         }
 
-        // ÇÃ·¹ÀÌ¾î Ãæµ¹ °ü·Ã Ã³¸®
+        // í”Œë ˆì´ì–´ ì¶©ëŒ ê´€ë ¨ ì²˜ë¦¬
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.tag == "Oxygen")
             {
-                // »ê¼Ò ¾ÆÀÌÅÛ°ú Ãæµ¹ÇÑ °æ¿ì
-                // ÇØ´ç »ê¼Ò ¾ÆÀÌÅÛ ºñÈ°¼ºÈ­ ÈÄ »ê¼Ò È¹µæ Ã³¸®
+                // ì‚°ì†Œ ì•„ì´í…œê³¼ ì¶©ëŒí•œ ê²½ìš°
+                // í•´ë‹¹ ì‚°ì†Œ ì•„ì´í…œ ë¹„í™œì„±í™” í›„ ì‚°ì†Œ íšë“ ì²˜ë¦¬
                 other.gameObject.SetActive(false);
 
                 FieldGameManager.instance.GetOxygen();
             }
             else if(other.gameObject.tag == "Reset")
             {
-                // ¸®¼Â ¾ÆÀÌÅÛ°ú Ãæµ¹ÇÑ °æ¿ì
-                // ÇØ´ç ¸®¼Â ¾ÆÀÌÅÛ ºñÈ°¼ºÈ­ ÈÄ ÇÊµå ¾ÆÀÌÅÛ »ı¼º Ã³¸®
+                // ë¦¬ì…‹ ì•„ì´í…œê³¼ ì¶©ëŒí•œ ê²½ìš°
+                // í•´ë‹¹ ë¦¬ì…‹ ì•„ì´í…œ ë¹„í™œì„±í™” í›„ í•„ë“œ ì•„ì´í…œ ìƒì„± ì²˜ë¦¬
                 other.gameObject.SetActive(false);
 
                 FieldGenManager.instance.GenerateFieldItems();
             }
             else if(other.gameObject.tag == "WhiteCall")
             {
-                // ¹éÇ÷±¸ È£Ãâ ¾ÆÀÌÅÛ°ú Ãæµ¹ÇÑ °æ¿ì
-                // ÇØ´ç ¹éÇ÷±¸ È£Ãâ ¾ÆÀÌÅÛ ºñÈ°¼ºÈ­ ÈÄ, ÇÃ·¹ÀÌ¾î ÀÌµ¿¼Óµµ 20% Áõ°¡
+                // ë°±í˜ˆêµ¬ í˜¸ì¶œ ì•„ì´í…œê³¼ ì¶©ëŒí•œ ê²½ìš°
+                // í•´ë‹¹ ë°±í˜ˆêµ¬ í˜¸ì¶œ ì•„ì´í…œ ë¹„í™œì„±í™” í›„, í”Œë ˆì´ì–´ ì´ë™ì†ë„ 20% ì¦ê°€
                 other.gameObject.SetActive(false);
 
                 GetComponent<PlayerRedController>().ChangePlayerMoveSpeed(20.0f);
                 isWhiteCall = true;
 
-                // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ ¹éÇ÷±¸ È£Ãâ »óÅÂ·Î ÀüÀÌ
+                // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœë¡œ ì „ì´
                 GetComponent<PlayerRedAnimation>().SetWhiteCallAnimation();
                 playerRedState = State.WhiteCall;
             }
             else if(other.gameObject.tag == "Monster" || other.gameObject.tag == "MonsterVirus")
             {
-                // ÇÊµå ¸ó½ºÅÍ¿Í Ãæµ¹ÇÑ °æ¿ì
+                // í•„ë“œ ëª¬ìŠ¤í„°ì™€ ì¶©ëŒí•œ ê²½ìš°
 
                 if((playerRedState == State.WhiteCall || isShield) && GameManager.instance.DurabilityWeapon > 0)
                 {
-                    // ÇöÀç ¹éÇ÷±¸ È£Ãâ »óÅÂÀÌ°Å³ª, ½¯µå°¡ ÀÖ´Â »óÅÂ¿¡¼­ ¹«±â ³»±¸µµ°¡ ³²¾ÆÀÖ´Â °æ¿ì
+                    // í˜„ì¬ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœì´ê±°ë‚˜, ì‰´ë“œê°€ ìˆëŠ” ìƒíƒœì—ì„œ ë¬´ê¸° ë‚´êµ¬ë„ê°€ ë‚¨ì•„ìˆëŠ” ê²½ìš°
 
                     if (other.gameObject.tag == "MonsterVirus")
                     {
-                        // ¹ÙÀÌ·¯½ºÇü ¸ó½ºÅÍÀÇ °æ¿ì ÇØ´ç ¸ó½ºÅÍ Á¦°Å ÈÄ ÇöÀç »ı¼º ¼ö °¨¼Ò
+                        // ë°”ì´ëŸ¬ìŠ¤í˜• ëª¬ìŠ¤í„°ì˜ ê²½ìš° í•´ë‹¹ ëª¬ìŠ¤í„° ì œê±° í›„ í˜„ì¬ ìƒì„± ìˆ˜ ê°ì†Œ
                         Destroy(other.gameObject);
                         GameObject.Find("FieldMonsterGenManager").GetComponent<FieldMonsterGenManager>().KillVirus();
                     }
                     else
                     {
-                        // ¼¼±ÕÇü ¸ó½ºÅÍÀÇ °æ¿ì ÇØ´ç ¸ó½ºÅÍ ºñÈ°¼ºÈ­
+                        // ì„¸ê· í˜• ëª¬ìŠ¤í„°ì˜ ê²½ìš° í•´ë‹¹ ëª¬ìŠ¤í„° ë¹„í™œì„±í™”
                         other.gameObject.SetActive(false);
                     }
 
-                    GameManager.instance.PlayerAddExp(50.0f);  // ÇÃ·¹ÀÌ¾î °æÇèÄ¡ 50 È¹µæ
-                    FieldGameManager.instance.KillMonster();   // ¸ó½ºÅÍ Ã³Ä¡ÇßÀ» ¶§ÀÇ Ã³¸®
-                    DurabilityManager.instance.UseWeapon();    // ¹«±â ³»±¸µµ °¨¼Ò
+                    GameManager.instance.PlayerAddExp(50.0f);  // í”Œë ˆì´ì–´ ê²½í—˜ì¹˜ 50 íšë“
+                    FieldGameManager.instance.KillMonster();   // ëª¬ìŠ¤í„° ì²˜ì¹˜í–ˆì„ ë•Œì˜ ì²˜ë¦¬
+                    DurabilityManager.instance.UseWeapon();    // ë¬´ê¸° ë‚´êµ¬ë„ ê°ì†Œ
                 }
                 else
                 {
-                    // ÇöÀç ¹éÇ÷±¸ È£Ãâ »óÅÂ, ½¯µå°¡ ÀÖ´Â »óÅÂ°¡ ¾Æ´Ï°Å³ª ¹«±â ³»±¸µµ°¡ ¾ø´Â °æ¿ì
+                    // í˜„ì¬ ë°±í˜ˆêµ¬ í˜¸ì¶œ ìƒíƒœ, ì‰´ë“œê°€ ìˆëŠ” ìƒíƒœê°€ ì•„ë‹ˆê±°ë‚˜ ë¬´ê¸° ë‚´êµ¬ë„ê°€ ì—†ëŠ” ê²½ìš°
 
-                    if (!isUnbeatable) // ¹«Àû »óÅÂ°¡ ¾Æ´Ò ¶§¸¸
+                    if (!isUnbeatable) // ë¬´ì  ìƒíƒœê°€ ì•„ë‹ ë•Œë§Œ
                     {
-                        // ¾Ö´Ï¸ŞÀÌ¼Ç°ú ÇÃ·¹ÀÌ¾î »óÅÂ¸¦ Á×À½ »óÅÂ·Î ÀüÀÌ
+                        // ì• ë‹ˆë©”ì´ì…˜ê³¼ í”Œë ˆì´ì–´ ìƒíƒœë¥¼ ì£½ìŒ ìƒíƒœë¡œ ì „ì´
                         GetComponent<PlayerRedAnimation>().SetDieAnimation();
                         playerRedState = State.Die;
                     }
@@ -253,9 +252,9 @@ namespace RSA
             }
             else if(other.gameObject.tag == "MiddlePotal")
             {
-                // Áß¾Ó Æ÷Å»°ú Ãâµ¹ÇÑ °æ¿ì
+                // ì¤‘ì•™ í¬íƒˆê³¼ ì¶œëŒí•œ ê²½ìš°
 
-                // º¸½º¸Ê ¾ÀÀ¸·Î ³Ñ¾î°¨
+                // ë³´ìŠ¤ë§µ ì”¬ìœ¼ë¡œ ë„˜ì–´ê°
                 GameManager.instance.gameState = GameManager.State.bossStage;
                 SceneManager.LoadScene("Boss");
             }
