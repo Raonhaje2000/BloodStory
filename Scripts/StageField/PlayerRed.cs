@@ -164,6 +164,7 @@ namespace RSA
             Debug.Log("플레이어 사망");
         }
 
+        // 백혈구 호출 지속 시간이 끝난 후 관련 데이터 처리
         void FinishWhilteCall()
         {
             // 증가되었던 플레이어의 이동 속도를 원래대로 돌림
